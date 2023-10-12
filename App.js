@@ -1,20 +1,54 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  View,
+  Text,
+  StatusBar,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
+import React from "react";
+import Home from "./src/screens/Home";
 
-export default function App() {
+const App = () => {
+  const [paginationType, setPaginationType] = React.useState("Button");
+  const [page, setPage] = React.useState(1);
+  console.log(page);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar style="auto" barStyle={"dark-content"} />
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginHorizontal: 20,
+        }}
+      >
+        <Text style={{ marginVertical: 10, textAlign: "center", fontSize: 18 }}>
+          Pagination
+        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            setPaginationType(
+              paginationType === "Button" ? "onScroll" : "Button"
+            );
+          
+          }}
+          style={{ flexDirection: "row", alignItems: "center" }}
+        >
+          <Text
+            style={{ marginVertical: 10, textAlign: "center", fontSize: 18 }}
+          >
+            Pagination Type :
+          </Text>
+          <Text
+            style={{ marginVertical: 10, textAlign: "center", fontSize: 18 }}
+          >
+            {paginationType === "Button" ? "onScroll" : "Button"}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <Home paginationType={paginationType} page={page} setPage={setPage} />
+    </SafeAreaView>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
